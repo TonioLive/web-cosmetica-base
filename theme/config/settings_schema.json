@@ -1,0 +1,172 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Base Cosmética",
+    "theme_version": "0.1.0",
+    "theme_author": "Equipo web",
+    "theme_documentation_url": "https://shopify.dev/docs/storefronts/themes",
+    "theme_support_url": "https://shopify.dev/docs/storefronts/themes"
+  },
+  {
+    "name": "Marca",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_name",
+        "label": "Nombre de marca",
+        "info": "Se usa como logotipo de texto mientras no haya logotipo en imagen.",
+        "default": "Maison"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logotipo"
+      },
+      {
+        "type": "range",
+        "id": "logo_height",
+        "label": "Altura del logotipo",
+        "min": 16,
+        "max": 48,
+        "step": 2,
+        "unit": "px",
+        "default": 28
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "PNG cuadrado de 64 × 64 px."
+      },
+      {
+        "type": "image_picker",
+        "id": "share_image",
+        "label": "Imagen para redes sociales",
+        "info": "Se muestra al compartir la web. 1200 × 628 px."
+      }
+    ]
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Fondo",
+        "default": "#F4EFEF"
+      },
+      {
+        "type": "color",
+        "id": "color_bg_2",
+        "label": "Fondo de producto",
+        "default": "#EAE1E2"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texto",
+        "default": "#24171C"
+      },
+      {
+        "type": "color",
+        "id": "color_ink_2",
+        "label": "Texto secundario",
+        "default": "#6E5D63"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Líneas",
+        "default": "#DCCFD2"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Acento",
+        "info": "Botones, etiquetas y tinte de la gota.",
+        "default": "#7A1426"
+      },
+      {
+        "type": "color",
+        "id": "color_on_accent",
+        "label": "Texto sobre acento",
+        "default": "#FBF4F4"
+      },
+      {
+        "type": "color",
+        "id": "color_metal",
+        "label": "Metal",
+        "info": "Numeración y detalles dorados.",
+        "default": "#B39869"
+      },
+      {
+        "type": "checkbox",
+        "id": "color_bg_dark",
+        "label": "El fondo es oscuro",
+        "info": "Activa los controles nativos del navegador en modo oscuro.",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Tipografía",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "label": "Títulos",
+        "default": "bodoni_moda_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Texto",
+        "default": "jost_n4"
+      }
+    ]
+  },
+  {
+    "name": "Bolsa",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "cart_samples",
+        "label": "Muestras de regalo",
+        "info": "Una por línea. Se guardan en el pedido como atributo «Muestras».",
+        "default": "Gota, 2 ml\nVelo, 2 ml\nMuestra sorpresa"
+      },
+      {
+        "type": "range",
+        "id": "cart_samples_max",
+        "label": "Muestras por pedido",
+        "min": 0,
+        "max": 4,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_gift_wrap",
+        "label": "Ofrecer envoltorio de regalo",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Redes sociales",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram",
+        "info": "https://instagram.com/…"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok",
+        "info": "https://tiktok.com/@…"
+      }
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+{% layout none %}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ 'gift_card.title' | t }} – {{ shop.name }}</title>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="section">
+      <div class="wrap" style="display:grid;gap:24px;max-width:640px">
+        <h1>{{ 'gift_card.title' | t }}</h1>
+        {%- assign balance = gift_card.balance | money -%}
+        <p class="price tnum">{{ 'gift_card.balance' | t: balance: balance }}</p>
+        <p>{{ 'gift_card.code' | t }}: <strong>{{ gift_card.code | format_code }}</strong></p>
+        {%- if gift_card.qr_identifier -%}
+          <div id="QrCode" data-identifier="{{ gift_card.qr_identifier }}"></div>
+        {%- endif -%}
+        <a class="btn" href="{{ shop.url }}">{{ 'gift_card.shop' | t }}</a>
+      </div>
+    </main>
+  </body>
+</html>

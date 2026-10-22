@@ -1,0 +1,56 @@
+{%- assign p = section.settings.product -%}
+<section class="section gift" id="san-valentin">
+  <div class="wrap gift__grid">
+    <a class="gift__media" href="{{ p.url | default: routes.all_products_collection_url }}" aria-label="{{ p.title | default: section.settings.heading | escape }}">
+      {%- if section.settings.image != blank -%}
+        {{ section.settings.image | image_url: width: 1600 | image_tag: loading: 'lazy', sizes: '(min-width: 900px) 58vw, 100vw', widths: '800, 1200, 1600', alt: '' }}
+      {%- else -%}
+        {%- assign uid = section.id | append: '-gift' -%}
+        {% render 'product-art', forma: 'coffret', uid: uid, title: section.settings.heading, ribbon: 'var(--ink)' %}
+      {%- endif -%}
+    </a>
+    <div class="gift__body">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+      {%- if p != blank -%}
+        <div class="price tnum">{% render 'price', product: p %}</div>
+      {%- endif -%}
+      {%- if section.settings.date != blank -%}
+        <div class="countdown" data-countdown="{{ section.settings.date | escape }}" aria-label="{{ 'countdown.label' | t }}">
+          <div class="countdown__unit"><span class="countdown__num" data-cd="d">0</span><span class="countdown__lbl">{{ 'countdown.days' | t }}</span></div>
+          <div class="countdown__unit"><span class="countdown__num" data-cd="h">00</span><span class="countdown__lbl">{{ 'countdown.hours' | t }}</span></div>
+          <div class="countdown__unit"><span class="countdown__num" data-cd="m">00</span><span class="countdown__lbl">{{ 'countdown.minutes' | t }}</span></div>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.button_label != blank -%}
+        <a class="btn" href="{{ p.url | default: routes.all_products_collection_url }}">{{ section.settings.button_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Campaña con cuenta atrás",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "San Valentín, en un coffret" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texto",
+      "default": "El sérum y la crema en una caja lacada con lazo y tarjeta escrita a mano. Edición limitada."
+    },
+    { "type": "product", "id": "product", "label": "Producto de la campaña" },
+    { "type": "image_picker", "id": "image", "label": "Imagen" },
+    {
+      "type": "text",
+      "id": "date",
+      "label": "Fecha objetivo",
+      "info": "Formato AAAA-MM-DDTHH:MM:SS+01:00",
+      "default": "2027-02-14T00:00:00+01:00"
+    },
+    { "type": "text", "id": "button_label", "label": "Botón", "default": "Reservar el coffret" }
+  ],
+  "presets": [{ "name": "Campaña con cuenta atrás" }]
+}
+{% endschema %}

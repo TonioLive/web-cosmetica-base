@@ -1,0 +1,48 @@
+{%- comment -%}
+  Tarjeta de producto. Uso: {% render 'product-card', product: product, uid: 'formulas-1' %}
+  Sin producto (bloque vacío en el editor) muestra un marcador de posición.
+{%- endcomment -%}
+{%- if product == blank -%}
+  <article class="card">
+    <span class="card__media">
+      <span class="media-primary">{% render 'product-art', forma: 'gota', uid: uid, title: 'Producto' %}</span>
+    </span>
+    <div class="card__row"><h3 class="card__title">Producto</h3><span class="card__price tnum">0,00 €</span></div>
+    <p class="card__type">Elige un producto en el editor de temas.</p>
+  </article>
+{%- else -%}
+  {%- liquid
+    assign card_uid = uid | append: '-' | append: product.id
+    assign claim = product.metafields.custom.claim.value
+  -%}
+  <article class="card">
+    <a class="card__media" href="{{ product.url }}" aria-label="{{ product.title | escape }}, {{ product.type | escape }}">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="card__badge">{{ 'products.sale' | t }}</span>
+      {%- endif -%}
+      <span class="media-primary">{% render 'product-media', product: product, uid: card_uid, width: 900, sizes: '(min-width: 900px) 45vw, 100vw' %}</span>
+      {%- if product.media.size > 1 -%}
+        <span class="media-secondary" aria-hidden="true">{% render 'product-media', product: product, uid: card_uid, index: 1, width: 900, sizes: '(min-width: 900px) 45vw, 100vw' %}</span>
+      {%- endif -%}
+    </a>
+    <div class="card__row">
+      <h3 class="card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+      <span class="card__price tnum">{% render 'price', product: product %}</span>
+    </div>
+    {%- if product.type != blank -%}
+      <p class="card__type">{{ product.type | escape }}.{% if claim != blank %} {{ claim | escape }}{% endif %}</p>
+    {%- endif -%}
+    <div class="card__actions">
+      {%- if product.has_only_default_variant and product.available -%}
+        {%- form 'product', product, data-product-form: '' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          <button type="submit" class="btn btn--ghost">{{ 'products.add_to_cart' | t }}</button>
+        {%- endform -%}
+      {%- elsif product.available -%}
+        <a class="btn btn--ghost" href="{{ product.url }}">{{ 'products.choose' | t }}</a>
+      {%- else -%}
+        <span class="btn btn--ghost" aria-disabled="true">{{ 'products.sold_out' | t }}</span>
+      {%- endif -%}
+    </div>
+  </article>
+{%- endif -%}

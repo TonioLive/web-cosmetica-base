@@ -1,0 +1,22 @@
+{%- comment -%}
+  Tabla de activos desde el metacampo product.metafields.custom.activos
+  (lista de metaobjetos «activo» con campos: nombre, porcentaje, funcion).
+  Uso: {% render 'facts-table', product: product %}
+{%- endcomment -%}
+{%- assign activos = product.metafields.custom.activos.value -%}
+{%- if activos != blank -%}
+  <table class="facts__table">
+    <caption class="visually-hidden">{{ 'products.actives_caption' | t: product: product.title }}</caption>
+    <tbody>
+      {%- for activo in activos -%}
+        <tr>
+          <th scope="row">
+            {{- activo.nombre.value | escape -}}
+            {%- if activo.funcion != blank -%}<span class="facts__fn">{{ activo.funcion.value | escape }}</span>{%- endif -%}
+          </th>
+          <td class="facts__pct tnum">{{ activo.porcentaje.value | append: '' | replace: '.', ',' }}&nbsp;%</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+{%- endif -%}

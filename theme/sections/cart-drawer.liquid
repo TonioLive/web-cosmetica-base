@@ -1,0 +1,104 @@
+{%- comment -%}
+  Bolsa lateral. Se renderiza en layout/theme.liquid y theme.js la vuelve a pedir
+  con la Section Rendering API (?sections=cart-drawer) tras cada cambio.
+  Muestras y regalo se guardan como atributos del carrito; el mensaje, como nota.
+{%- endcomment -%}
+{%- liquid
+  assign samples = settings.cart_samples | newline_to_br | strip_newlines | split: '<br />'
+  assign chosen = cart.attributes['Muestras'] | default: '' | split: ' | '
+-%}
+<div class="drawer{% if template.name == 'cart' %} is-static{% endif %}" id="cart-drawer" inert>
+  <button type="button" class="drawer__backdrop" data-close tabindex="-1" aria-label="{{ 'cart.close' | t }}"></button>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cart-drawer-title" data-cart-panel>
+    <div class="drawer__head">
+      <h2 id="cart-drawer-title">{{ 'cart.title' | t }}</h2>
+      <button type="button" class="icon-btn" data-close aria-label="{{ 'cart.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+    </div>
+
+    <div class="drawer__body">
+      {%- if cart.item_count == 0 -%}
+        <div class="empty-state">
+          <p class="empty-state__title">{{ 'cart.empty' | t }}</p>
+          <p>{{ 'cart.empty_text' | t }}</p>
+          <a class="btn btn--ghost" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+        </div>
+      {%- else -%}
+        <ul class="line-items">
+          {%- for item in cart.items -%}
+            <li class="line-item">
+              <a class="line-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}
+                  {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+                {%- else -%}
+                  {%- assign uid = 'cart-' | append: forloop.index -%}
+                  {% render 'product-media', product: item.product, uid: uid, width: 200 %}
+                {%- endif -%}
+              </a>
+              <div class="line-item__info">
+                <a class="line-item__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                <p class="line-item__meta">
+                  {{- item.product.type | escape -}}
+                  {%- unless item.product.has_only_default_variant -%}, {{ item.variant.title | escape }}{%- endunless -%}
+                </p>
+                <div class="qty qty--sm" role="group" aria-label="{{ 'products.quantity' | t }}">
+                  <button type="button" data-line-key="{{ item.key }}" data-quantity="{{ item.quantity | minus: 1 }}" aria-label="{{ 'products.quantity_decrease' | t }}">−</button>
+                  <output class="tnum">{{ item.quantity }}</output>
+                  <button type="button" data-line-key="{{ item.key }}" data-quantity="{{ item.quantity | plus: 1 }}" aria-label="{{ 'products.quantity_increase' | t }}">+</button>
+                </div>
+              </div>
+              <div class="line-item__end">
+                <span class="tnum">{{ item.final_line_price | money }}</span>
+                <button type="button" class="remove" data-line-key="{{ item.key }}" data-quantity="0">{{ 'cart.remove' | t }}</button>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+
+        {%- if settings.cart_samples_max > 0 and samples.size > 0 -%}
+          <fieldset class="samples" data-samples data-max="{{ settings.cart_samples_max }}">
+            <legend>{{ 'cart.samples' | t }}</legend>
+            <div class="chips">
+              {%- for sample in samples -%}
+                {%- assign s = sample | strip -%}
+                <label class="chip" for="sample-{{ forloop.index }}">
+                  <input type="checkbox" id="sample-{{ forloop.index }}" value="{{ s | escape }}"{% if chosen contains s %} checked{% endif %}>
+                  <span>{{ s | escape }}</span>
+                </label>
+              {%- endfor -%}
+            </div>
+            <p class="samples__count">{{ 'cart.samples_count' | t: max: settings.cart_samples_max }}</p>
+          </fieldset>
+        {%- endif -%}
+
+        {%- if settings.cart_gift_wrap -%}
+          {%- assign is_gift = false -%}
+          {%- if cart.attributes['Regalo'] == 'Sí' -%}{%- assign is_gift = true -%}{%- endif -%}
+          <div class="gift-wrap">
+            <label class="check" for="cart-gift"><input type="checkbox" id="cart-gift" data-gift{% if is_gift %} checked{% endif %}><span>{{ 'cart.gift_wrap' | t }}</span></label>
+            <div class="gift-wrap__msg"{% unless is_gift %} hidden{% endunless %} data-gift-msg>
+              <label for="cart-note">{{ 'cart.gift_message' | t }}</label>
+              <textarea id="cart-note" rows="3" maxlength="200" data-cart-note>{{ cart.note }}</textarea>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__foot">
+        <div class="subtotal-row"><span>{{ 'cart.subtotal' | t }}</span><span class="tnum">{{ cart.total_price | money }}</span></div>
+        <p class="drawer__note">{{ 'cart.taxes' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="btn btn--block">{{ 'cart.checkout' | t }}</button>
+        </form>
+      </div>
+    {%- endif -%}
+  </aside>
+</div>
+
+{% schema %}
+{
+  "name": "Bolsa lateral",
+  "settings": []
+}
+{% endschema %}

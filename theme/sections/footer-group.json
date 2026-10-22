@@ -1,0 +1,20 @@
+{
+  "type": "footer",
+  "name": "Pie",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "tienda": { "type": "menu", "settings": { "heading": "Tienda", "menu": "main-menu" } },
+        "ayuda": { "type": "menu", "settings": { "heading": "Ayuda", "menu": "footer" } },
+        "legal": { "type": "menu", "settings": { "heading": "Legal", "menu": "legal" } }
+      },
+      "block_order": ["tienda", "ayuda", "legal"],
+      "settings": {
+        "text": "Cosmética de alta concentración. Nombre y datos legales pendientes de la constitución de la empresa.",
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

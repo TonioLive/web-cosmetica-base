@@ -1,0 +1,100 @@
+{
+  "general": {
+    "page": "Page {{ page }}",
+    "skip": "Skip to content",
+    "close": "Close"
+  },
+  "header": {
+    "menu_open": "Open menu",
+    "menu_close": "Close menu",
+    "menu": "Menu",
+    "nav_label": "Main",
+    "search": "Search",
+    "account": "Account",
+    "cart": {
+      "one": "Bag, {{ count }} item",
+      "other": "Bag, {{ count }} items"
+    }
+  },
+  "products": {
+    "add_to_cart": "Add to bag",
+    "added": "Added",
+    "sold_out": "Sold out",
+    "choose": "Choose size",
+    "from": "From {{ price }}",
+    "sale": "Sale",
+    "quantity": "Quantity",
+    "quantity_decrease": "Remove one",
+    "quantity_increase": "Add one",
+    "gallery": "Product images",
+    "view_media": "View image {{ index }}",
+    "pao": "Use within {{ months }} months of opening",
+    "breadcrumb": "Breadcrumb",
+    "shop": "Shop",
+    "actives_caption": "Actives in {{ product }} and their concentration"
+  },
+  "cart": {
+    "title": "Your bag",
+    "close": "Close bag",
+    "empty": "Your bag is empty",
+    "empty_text": "Start with the serum: it is the base of the ritual.",
+    "continue": "Browse the shop",
+    "remove": "Remove",
+    "subtotal": "Subtotal",
+    "taxes": "Taxes included. Shipping calculated at checkout.",
+    "checkout": "Check out",
+    "samples": "Choose your free samples",
+    "samples_count": "Up to {{ max }} samples",
+    "gift_wrap": "Gift wrap, free of charge",
+    "gift_message": "Card message (handwritten by us)",
+    "update": "Update",
+    "error": "The bag could not be updated. Reload the page and try again."
+  },
+  "search": {
+    "title": "Search",
+    "label": "Search products or ingredients",
+    "placeholder": "Search",
+    "close": "Close search",
+    "no_results": "Nothing matches “{{ terms }}”. Try an active, such as niacinamide.",
+    "results": "Results for “{{ terms }}”",
+    "submit": "Search"
+  },
+  "newsletter": {
+    "email": "Email",
+    "placeholder": "Your email",
+    "submit": "Sign me up",
+    "consent": "I accept the privacy policy and agree to receive marketing emails."
+  },
+  "countdown": {
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "label": "Time left"
+  },
+  "password": {
+    "enter": "Enter with password",
+    "password": "Password",
+    "submit": "Enter"
+  },
+  "not_found": {
+    "title": "This page does not exist",
+    "text": "The link may have changed. Go back to the shop to keep browsing.",
+    "cta": "Back to the shop"
+  },
+  "collections": {
+    "count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty": "There are no products in this collection yet."
+  },
+  "blogs": {
+    "read_more": "Read article"
+  },
+  "gift_card": {
+    "title": "Your gift card",
+    "code": "Code",
+    "balance": "Balance: {{ balance }}",
+    "shop": "Go to the shop"
+  }
+}

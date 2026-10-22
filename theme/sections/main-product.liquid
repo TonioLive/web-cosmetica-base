@@ -1,0 +1,220 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign form_id = 'product-form-' | append: section.id
+  assign uid = section.id | append: '-pdp'
+-%}
+<div class="wrap">
+  <nav class="crumbs" aria-label="{{ 'products.breadcrumb' | t }}">
+    <a href="{{ routes.all_products_collection_url }}">{{ 'products.shop' | t }}</a>
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">{{ product.title | escape }}</span>
+  </nav>
+
+  <div class="pdp" data-product-section data-section-id="{{ section.id }}">
+    {%- comment -%} Galería: fotos de product.media o, si no hay, la ilustración {%- endcomment -%}
+    <div class="pdp__gallery">
+      <div class="pdp__main" data-gallery-main>
+        {%- if product.media.size > 0 -%}
+          {%- for media in product.media -%}
+            <div class="pdp__slide{% if forloop.first %} is-active{% endif %}" data-slide="{{ forloop.index0 }}"{% unless forloop.first %} aria-hidden="true"{% endunless %}>
+              {%- assign loading = 'lazy' -%}
+              {%- if forloop.first -%}{%- assign loading = 'eager' -%}{%- endif -%}
+              {%- assign alt = media.alt | default: product.title -%}
+              {{ media.preview_image | image_url: width: 1600 | image_tag: loading: loading, sizes: '(min-width: 900px) 58vw, 100vw', widths: '600, 900, 1200, 1600', alt: alt }}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          <div class="pdp__slide is-active" data-slide="0">{% render 'product-media', product: product, uid: uid %}</div>
+        {%- endif -%}
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="pdp__thumbs" role="group" aria-label="{{ 'products.gallery' | t }}">
+          {%- for media in product.media limit: 6 -%}
+            <button type="button" class="pdp__thumb" data-thumb="{{ forloop.index0 }}" aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="{{ 'products.view_media' | t: index: forloop.index }}">
+              {{ media.preview_image | image_url: width: 300 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="pdp__info">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when '@app' -%}
+            {% render block %}
+
+          {%- when 'title' -%}
+            <div {{ block.shopify_attributes }}>
+              <h1 class="pdp__title">{{ product.title | escape }}</h1>
+              {%- if product.type != blank -%}<p class="pdp__type">{{ product.type | escape }}</p>{%- endif -%}
+            </div>
+
+          {%- when 'price' -%}
+            <div class="price tnum" data-product-price {{ block.shopify_attributes }}>
+              {% render 'price', product: product, variant: current_variant %}
+            </div>
+
+          {%- when 'description' -%}
+            <div class="pdp__desc" {{ block.shopify_attributes }}>{{ product.description }}</div>
+
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <div {{ block.shopify_attributes }}>
+                {%- for option in product.options_with_values -%}
+                  <fieldset class="variant-pills" data-option-index="{{ forloop.index0 }}">
+                    <legend>{{ option.name | escape }}</legend>
+                    <div>
+                      {%- for value in option.values -%}
+                        {%- assign input_id = section.id | append: '-' | append: option.position | append: '-' | append: forloop.index0 -%}
+                        <label class="pill" for="{{ input_id }}">
+                          <input
+                            type="radio"
+                            id="{{ input_id }}"
+                            name="option-{{ option.position }}"
+                            value="{{ value | escape }}"
+                            form="{{ form_id }}"
+                            {% if option.selected_value == value %}checked{% endif %}
+                          >
+                          <span>{{ value | escape }}</span>
+                        </label>
+                      {%- endfor -%}
+                    </div>
+                  </fieldset>
+                {%- endfor -%}
+              </div>
+            {%- endunless -%}
+
+          {%- when 'buy_buttons' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- form 'product', product, id: form_id, data-product-form: '', novalidate: 'novalidate' -%}
+                <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+                <div class="buy-row">
+                  <div class="qty" role="group" aria-label="{{ 'products.quantity' | t }}">
+                    <button type="button" data-qty-step="-1" aria-label="{{ 'products.quantity_decrease' | t }}">−</button>
+                    <input type="number" name="quantity" value="1" min="1" max="9" class="visually-hidden" data-qty-input aria-label="{{ 'products.quantity' | t }}">
+                    <output class="tnum" data-qty-output>1</output>
+                    <button type="button" data-qty-step="1" aria-label="{{ 'products.quantity_increase' | t }}">+</button>
+                  </div>
+                  <button type="submit" name="add" class="btn btn--split" data-add-button{% unless current_variant.available %} disabled{% endunless %}>
+                    <span data-add-label>{%- if current_variant.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}</span>
+                    <span class="tnum" data-add-price>{{ current_variant.price | money }}</span>
+                  </button>
+                </div>
+                {%- if block.settings.show_dynamic_checkout -%}
+                  <div class="dynamic-checkout">{{ form | payment_button }}</div>
+                {%- endif -%}
+              {%- endform -%}
+            </div>
+
+          {%- when 'text' -%}
+            <div class="assurances" {{ block.shopify_attributes }}>{{ block.settings.text }}</div>
+
+          {%- when 'collapsible_tab' -%}
+            <details class="accordion__item" {{ block.shopify_attributes }}{% if block.settings.open %} open{% endif %}>
+              <summary>{{ block.settings.heading | escape }}</summary>
+              <div class="accordion__body">
+                {%- case block.settings.source -%}
+                  {%- when 'beneficios' -%}
+                    {%- assign items = product.metafields.custom.beneficios.value -%}
+                    {%- if items != blank -%}
+                      <ul>{%- for item in items -%}<li>{{ item | escape }}</li>{%- endfor -%}</ul>
+                    {%- endif -%}
+                  {%- when 'activos' -%}
+                    {% render 'facts-table', product: product %}
+                  {%- when 'inci' -%}
+                    <p>{{ product.metafields.custom.inci.value | escape | newline_to_br }}</p>
+                    {%- if product.metafields.custom.pao_meses != blank -%}
+                      <p>{{ 'products.pao' | t: months: product.metafields.custom.pao_meses.value }}{% if product.metafields.custom.ph != blank %}. pH {{ product.metafields.custom.ph.value | escape }}{% endif %}.</p>
+                    {%- endif -%}
+                  {%- when 'modo_de_uso' -%}
+                    <p>{{ product.metafields.custom.modo_de_uso.value | escape | newline_to_br }}</p>
+                  {%- when 'page' -%}
+                    {{ block.settings.page.content }}
+                  {%- else -%}
+                    {{ block.settings.content }}
+                {%- endcase -%}
+              </div>
+            </details>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<div class="sticky-buy" data-sticky-buy inert>
+  <span class="sticky-buy__name">{{ product.title | escape }}</span>
+  <button type="submit" class="btn" form="{{ form_id }}"{% unless current_variant.available %} disabled{% endunless %}>{{ 'products.add_to_cart' | t }}</button>
+</div>
+
+<script type="application/json" data-product-variants>
+  [
+    {%- for v in product.variants -%}
+      {"id": {{ v.id }}, "available": {{ v.available | json }}, "options": {{ v.options | json }}, "price": {{ v.price | money | json }}, "compare": {% if v.compare_at_price > v.price %}{{ v.compare_at_price | money | json }}{% else %}null{% endif %}}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+</script>
+
+{% schema %}
+{
+  "name": "Ficha de producto",
+  "class": "section-main-product",
+  "blocks": [
+    { "type": "@app" },
+    { "type": "title", "name": "Título", "limit": 1 },
+    { "type": "price", "name": "Precio", "limit": 1 },
+    { "type": "description", "name": "Descripción", "limit": 1 },
+    { "type": "variant_picker", "name": "Selector de variante", "limit": 1 },
+    {
+      "type": "buy_buttons",
+      "name": "Botón de compra",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "label": "Botones de pago rápido",
+          "info": "Apple Pay, Google Pay o Shop Pay según el dispositivo.",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Texto",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto",
+          "default": "<p>Envío gratuito en 24/48 h</p><p>Devolución gratuita durante 30 días</p><p>Dos muestras de regalo en cada pedido</p>"
+        }
+      ]
+    },
+    {
+      "type": "collapsible_tab",
+      "name": "Pestaña desplegable",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Qué hace" },
+        {
+          "type": "select",
+          "id": "source",
+          "label": "Contenido",
+          "options": [
+            { "value": "beneficios", "label": "Metacampo: beneficios" },
+            { "value": "activos", "label": "Metacampo: activos" },
+            { "value": "inci", "label": "Metacampo: INCI" },
+            { "value": "modo_de_uso", "label": "Metacampo: modo de uso" },
+            { "value": "page", "label": "Página" },
+            { "value": "text", "label": "Texto libre" }
+          ],
+          "default": "beneficios"
+        },
+        { "type": "page", "id": "page", "label": "Página" },
+        { "type": "richtext", "id": "content", "label": "Texto libre" },
+        { "type": "checkbox", "id": "open", "label": "Abierta al cargar", "default": false }
+      ]
+    }
+  ]
+}
+{% endschema %}

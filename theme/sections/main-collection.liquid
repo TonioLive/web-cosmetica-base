@@ -1,0 +1,32 @@
+<section class="section collection">
+  <div class="wrap">
+    <header class="collection__head">
+      <h1>{{ collection.title | escape }}</h1>
+      <p class="tnum">{{ 'collections.count' | t: count: collection.products_count }}</p>
+    </header>
+    {%- paginate collection.products by section.settings.per_page -%}
+      {%- if collection.products.size > 0 -%}
+        <div class="collection-grid">
+          {%- for product in collection.products -%}
+            {%- assign uid = section.id | append: '-' | append: forloop.index -%}
+            {% render 'product-card', product: product, uid: uid %}
+          {%- endfor -%}
+        </div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination">{{ paginate | default_pagination }}</nav>
+        {%- endif -%}
+      {%- else -%}
+        <p>{{ 'collections.empty' | t }}</p>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Colección",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Productos por página", "min": 3, "max": 24, "step": 3, "default": 12 }
+  ]
+}
+{% endschema %}

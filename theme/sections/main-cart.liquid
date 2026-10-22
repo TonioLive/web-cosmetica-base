@@ -1,0 +1,49 @@
+{%- comment -%} Página /cart: respaldo sin JavaScript de la bolsa lateral {%- endcomment -%}
+<section class="section cart-page">
+  <div class="wrap">
+    <header class="collection__head"><h1>{{ 'cart.title' | t }}</h1></header>
+    {%- if cart.item_count == 0 -%}
+      <div class="empty-state">
+        <p>{{ 'cart.empty_text' | t }}</p>
+        <a class="btn btn--ghost" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+      </div>
+    {%- else -%}
+      {%- form 'cart', cart -%}
+        <ul class="line-items">
+          {%- for item in cart.items -%}
+            <li class="line-item">
+              <a class="line-item__media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                {%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+              </a>
+              <div class="line-item__info">
+                <a class="line-item__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                {%- unless item.product.has_only_default_variant -%}<p class="line-item__meta">{{ item.variant.title | escape }}</p>{%- endunless -%}
+                <label class="visually-hidden" for="updates-{{ item.key }}">{{ 'products.quantity' | t }}</label>
+                <input class="qty-input" type="number" id="updates-{{ item.key }}" name="updates[]" value="{{ item.quantity }}" min="0">
+              </div>
+              <div class="line-item__end">
+                <span class="tnum">{{ item.final_line_price | money }}</span>
+                <a class="remove" href="{{ item.url_to_remove }}">{{ 'cart.remove' | t }}</a>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <div class="cart-page__foot">
+          <label for="cart-page-note">{{ 'cart.gift_message' | t }}</label>
+          <textarea id="cart-page-note" name="note" rows="3">{{ cart.note }}</textarea>
+          <div class="subtotal-row"><span>{{ 'cart.subtotal' | t }}</span><span class="tnum">{{ cart.total_price | money }}</span></div>
+          <p class="drawer__note">{{ 'cart.taxes' | t }}</p>
+          <button type="submit" name="update" class="btn btn--ghost">{{ 'cart.update' | t }}</button>
+          <button type="submit" name="checkout" class="btn">{{ 'cart.checkout' | t }}</button>
+        </div>
+      {%- endform -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bolsa",
+  "settings": []
+}
+{% endschema %}

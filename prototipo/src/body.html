@@ -1,0 +1,292 @@
+<title>Boceto tienda cosmética</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Boceto navegable de la tienda online: estructura equivalente a un tema Shopify Online Store 2.0.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..700&family=Jost:wght@300..600&display=swap">
+<style>
+/*__BASE_CSS__*/
+/*__PROTO_CSS__*/
+.ico { fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 8h18M3 16h18"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19"/></symbol>
+</svg>
+
+<!-- ============ layout/theme.liquid ============ -->
+<div class="layout-theme">
+
+  <!-- header-group: barra de anuncios + cabecera -->
+  <div class="announcement" data-shopify="sections/announcement-bar.liquid (header-group)">
+    <div class="wrap"><p data-announcement>Envío gratuito y dos muestras en cada pedido</p></div>
+  </div>
+
+  <div class="section-header site-header" data-shopify="sections/header.liquid (header-group)">
+    <div class="wrap site-header__inner">
+      <div>
+        <button type="button" class="icon-btn menu-toggle" data-open="menu-drawer" aria-label="Abrir menú"><svg class="ico"><use href="#i-menu"/></svg></button>
+        <nav class="site-nav" aria-label="Principal">
+          <a href="#tienda">Tienda</a>
+          <a href="#formulas">Fórmulas</a>
+          <a href="#ritual">El ritual</a>
+          <a href="#san-valentin">San Valentín</a>
+        </nav>
+      </div>
+      <a class="wordmark" href="#inicio" data-wordmark>Maison</a>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" data-open="search" aria-label="Buscar"><svg class="ico"><use href="#i-search"/></svg></button>
+        <button type="button" class="icon-btn hide-sm" data-account aria-label="Cuenta"><svg class="ico"><use href="#i-user"/></svg></button>
+        <button type="button" class="icon-btn" data-open="cart-drawer" data-bag-label aria-label="Bolsa"><svg class="ico"><use href="#i-bag"/></svg><span class="bag-count tnum" data-bag-count hidden>0</span></button>
+      </div>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <!-- ============ templates/index.json ============ -->
+    <div data-view="home">
+
+      <section class="hero-drop" id="inicio" data-hero-drop data-heading="Una gota|basta." data-intensity="1" data-idle="true" data-shopify="sections/hero-drop.liquid">
+        <canvas class="hero-drop__canvas" data-hero-canvas aria-hidden="true"></canvas>
+        <div class="wrap hero-drop__headwrap"><h1 class="hero-drop__heading"><span>Una gota</span> <span>basta.</span></h1></div>
+        <div class="wrap hero-drop__content">
+          <div class="hero-drop__text">
+            <p class="hero-drop__lede">Dos fórmulas de alta concentración, pensadas para usarse juntas.</p>
+            <div class="hero-drop__ctas">
+              <a class="btn" href="#coffret">Comprar el ritual</a>
+              <a class="btn btn--ghost" href="#formulas">Ver las fórmulas</a>
+            </div>
+          </div>
+          <p class="hero-drop__hint" data-hero-hint>Mueve el cursor: la gota te sigue</p>
+        </div>
+      </section>
+
+      <section class="section formulas" id="formulas" data-shopify="sections/featured-formulas.liquid">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Las fórmulas</h2>
+            <p>Un sérum y una crema. Cada uno lleva cuatro activos y su porcentaje está escrito en la etiqueta.</p>
+          </header>
+          <div class="formulas__grid" data-cards="gota,velo"></div>
+        </div>
+      </section>
+
+      <section class="section ritual" id="ritual" data-shopify="sections/ritual-steps.liquid">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>El ritual</h2>
+            <p>Tres pasos y menos de un minuto. El orden importa: de la textura más ligera a la más rica.</p>
+          </header>
+          <div class="ritual__grid">
+            <div class="ritual__visual" aria-hidden="true">
+              <div class="ritual__frame is-active"></div>
+              <div class="ritual__frame"></div>
+              <div class="ritual__frame"></div>
+            </div>
+            <ol class="ritual__steps">
+              <li class="ritual-step is-active" data-step="0" data-shopify-block="block: step">
+                <span class="ritual-step__n">1</span>
+                <h3>Piel limpia</h3>
+                <p>Empieza siempre sobre la piel limpia y todavía un poco húmeda. Los activos penetran mejor.</p>
+                <span class="ritual-step__when">Mañana y noche</span>
+              </li>
+              <li class="ritual-step" data-step="1" data-shopify-block="block: step (producto: Gota)">
+                <span class="ritual-step__n">2</span>
+                <h3>Tres gotas de Gota</h3>
+                <p>En la palma de la mano. Presiona sobre rostro y cuello, sin frotar, hasta que se absorba.</p>
+                <span class="ritual-step__when">Mañana y noche</span>
+              </li>
+              <li class="ritual-step" data-step="2" data-shopify-block="block: step (producto: Velo)">
+                <span class="ritual-step__n">3</span>
+                <h3>Una capa de Velo</h3>
+                <p>Una cantidad del tamaño de un guisante. Caliéntala entre los dedos y extiende de dentro hacia fuera.</p>
+                <span class="ritual-step__when">Por la noche</span>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="section facts" id="formula" data-shopify="sections/formula-facts.liquid">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Lo que pone la etiqueta</h2>
+            <p>Cada activo con su concentración. Si una cifra cambia en la fórmula, cambia aquí.</p>
+          </header>
+          <div class="facts__panel">
+            <div class="facts__tabs" role="tablist" aria-label="Elige una fórmula">
+              <button type="button" class="facts__tab" role="tab" id="tab-gota" aria-selected="true" aria-controls="facts-panel" data-facts="gota">Gota</button>
+              <button type="button" class="facts__tab" role="tab" id="tab-velo" aria-selected="false" aria-controls="facts-panel" data-facts="velo">Velo</button>
+            </div>
+            <div class="facts__label" role="tabpanel" id="facts-panel" aria-labelledby="tab-gota" data-shopify-block="product.metafields.custom.activos"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section gift" id="san-valentin" data-shopify="sections/gift-countdown.liquid">
+        <div class="wrap gift__grid">
+          <a class="gift__media" href="#coffret" id="gift-art" aria-label="Ver el coffret de San Valentín"></a>
+          <div class="gift__body">
+            <h2>San Valentín, en un coffret</h2>
+            <p>Gota 30 ml y Velo 50 ml en una caja lacada con lazo y tarjeta escrita a mano. Edición limitada.</p>
+            <div class="price tnum"><span>279,00&nbsp;€</span><s>313,00&nbsp;€</s></div>
+            <div class="countdown" data-countdown="2027-02-14T00:00:00+01:00" aria-label="Tiempo que falta para el 14 de febrero">
+              <div class="countdown__unit"><span class="countdown__num" data-cd="d">0</span><span class="countdown__lbl">días</span></div>
+              <div class="countdown__unit"><span class="countdown__num" data-cd="h">00</span><span class="countdown__lbl">horas</span></div>
+              <div class="countdown__unit"><span class="countdown__num" data-cd="m">00</span><span class="countdown__lbl">minutos</span></div>
+            </div>
+            <a class="btn" href="#coffret">Reservar el coffret</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section waitlist" id="lista" data-shopify="sections/waitlist.liquid">
+        <div class="wrap waitlist__grid">
+          <div class="waitlist__intro">
+            <h2>Avísame del lanzamiento</h2>
+            <p>Un correo el día de la salida y acceso 48 horas antes que nadie.</p>
+          </div>
+          <form class="waitlist__form" data-waitlist novalidate>
+            <label for="wl-email" class="visually-hidden">Correo electrónico</label>
+            <div class="field-row"><input id="wl-email" type="email" required placeholder="Tu correo electrónico" autocomplete="email"><button type="submit" class="field-row__btn">Apuntarme</button></div>
+            <label class="consent" for="wl-consent"><input type="checkbox" id="wl-consent"><span>Acepto la política de privacidad y recibir comunicaciones comerciales.</span></label>
+            <p class="form-msg" role="status" hidden></p>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ templates/product.json ============ -->
+    <div data-view="product" hidden><div id="pdp-root"></div></div>
+
+    <!-- ============ templates/collection.json ============ -->
+    <div data-view="collection" hidden>
+      <section class="section collection" data-shopify="sections/main-collection.liquid">
+        <div class="wrap">
+          <header class="collection__head"><h1>Tienda</h1><p class="tnum">3 productos</p></header>
+          <div class="collection-grid" data-cards="gota,velo,coffret"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- footer-group -->
+  <footer class="site-footer" data-shopify="sections/footer.liquid (footer-group)">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="wordmark" href="#inicio" data-wordmark>Maison</a>
+          <p>Cosmética de alta concentración. Nombre y datos legales pendientes de la constitución de la empresa.</p>
+        </div>
+        <nav class="footer__col" aria-label="Tienda"><h3>Tienda</h3><ul><li><a href="#gota">Gota</a></li><li><a href="#velo">Velo</a></li><li><a href="#coffret">Coffret San Valentín</a></li></ul></nav>
+        <nav class="footer__col" aria-label="Ayuda"><h3>Ayuda</h3><ul><li><a href="#inicio">Envíos</a></li><li><a href="#inicio">Devoluciones</a></li><li><a href="#inicio">Preguntas frecuentes</a></li><li><a href="#inicio">Contacto</a></li></ul></nav>
+        <nav class="footer__col" aria-label="Legal"><h3>Legal</h3><ul><li><a href="#inicio">Aviso legal</a></li><li><a href="#inicio">Privacidad</a></li><li><a href="#inicio">Cookies</a></li><li><a href="#inicio">Condiciones de venta</a></li></ul></nav>
+      </div>
+      <div class="footer__bottom"><p>© 2026 <span data-wordmark>Maison</span></p><p>Pago con tarjeta, Apple Pay y Google Pay</p></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ============ layout/password.liquid: pre-lanzamiento con lista de espera ============ -->
+<div class="layout-password" data-view="password" hidden>
+  <header class="wrap password__top">
+    <span></span>
+    <span class="wordmark" data-wordmark>Maison</span>
+    <a class="password__enter" href="#inicio">Entrar con contraseña</a>
+  </header>
+  <section class="hero-drop hero-drop--password" data-hero-drop data-heading="Muy|pronto." data-intensity="1.2" data-idle="true" data-shopify="sections/main-password.liquid">
+    <canvas class="hero-drop__canvas" data-hero-canvas aria-hidden="true"></canvas>
+    <div class="wrap hero-drop__headwrap"><h1 class="hero-drop__heading"><span>Muy</span> <span>pronto.</span></h1></div>
+    <div class="wrap hero-drop__content">
+      <div class="hero-drop__text">
+        <p class="hero-drop__lede">Lanzamos en febrero de 2027. Apúntate y te avisamos 48 horas antes.</p>
+        <form class="waitlist__form" data-waitlist novalidate>
+          <label for="pw-email" class="visually-hidden">Correo electrónico</label>
+          <div class="field-row"><input id="pw-email" type="email" required placeholder="Tu correo electrónico" autocomplete="email"><button type="submit" class="field-row__btn">Apuntarme</button></div>
+          <label class="consent" for="pw-consent"><input type="checkbox" id="pw-consent"><span>Acepto la política de privacidad y recibir comunicaciones comerciales.</span></label>
+          <p class="form-msg" role="status" hidden></p>
+        </form>
+      </div>
+      <div class="countdown" data-countdown="2027-02-14T00:00:00+01:00" aria-label="Tiempo que falta para el lanzamiento">
+        <div class="countdown__unit"><span class="countdown__num" data-cd="d">0</span><span class="countdown__lbl">días</span></div>
+        <div class="countdown__unit"><span class="countdown__num" data-cd="h">00</span><span class="countdown__lbl">horas</span></div>
+        <div class="countdown__unit"><span class="countdown__num" data-cd="m">00</span><span class="countdown__lbl">minutos</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ Paneles (snippets) ============ -->
+<div class="drawer" id="cart-drawer">
+  <button type="button" class="drawer__backdrop" data-close tabindex="-1" aria-label="Cerrar la bolsa"></button>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="cart-title" data-shopify="snippets/cart-drawer.liquid">
+    <div class="drawer__head"><h2 id="cart-title">Tu bolsa</h2><button type="button" class="icon-btn" data-close aria-label="Cerrar la bolsa"><svg class="ico"><use href="#i-close"/></svg></button></div>
+    <div class="drawer__body" id="cart-body"></div>
+    <div class="drawer__foot" id="cart-foot" hidden></div>
+  </aside>
+</div>
+
+<div class="drawer drawer--left" id="menu-drawer">
+  <button type="button" class="drawer__backdrop" data-close tabindex="-1" aria-label="Cerrar el menú"></button>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="menu-title" data-shopify="snippets/menu-drawer.liquid">
+    <div class="drawer__head"><h2 id="menu-title" class="visually-hidden">Menú</h2><span class="wordmark" data-wordmark>Maison</span><button type="button" class="icon-btn" data-close aria-label="Cerrar el menú"><svg class="ico"><use href="#i-close"/></svg></button></div>
+    <div class="drawer__body">
+      <ul class="menu-list">
+        <li><a href="#tienda" data-close>Tienda</a></li>
+        <li><a href="#gota" data-close>Gota</a></li>
+        <li><a href="#velo" data-close>Velo</a></li>
+        <li><a href="#coffret" data-close>Coffret San Valentín</a></li>
+        <li><a href="#ritual" data-close>El ritual</a></li>
+      </ul>
+      <button type="button" class="btn btn--ghost" data-account>Mi cuenta</button>
+    </div>
+  </aside>
+</div>
+
+<div class="search" id="search">
+  <button type="button" class="drawer__backdrop" data-close tabindex="-1" aria-label="Cerrar la búsqueda"></button>
+  <div class="search__panel" role="dialog" aria-modal="true" aria-label="Buscar" data-shopify="snippets/predictive-search.liquid">
+    <div class="wrap">
+      <div class="search__field">
+        <label for="search-input" class="visually-hidden">Buscar productos o ingredientes</label>
+        <input id="search-input" type="search" placeholder="Buscar" autocomplete="off" data-autofocus>
+        <button type="button" class="icon-btn" data-close aria-label="Cerrar la búsqueda"><svg class="ico"><use href="#i-close"/></svg></button>
+      </div>
+      <div class="search__results" id="search-results" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<!-- ============ Solo prototipo ============ -->
+<div class="devbar" role="toolbar" aria-label="Herramientas del boceto">
+  <button type="button" data-toggle-structure aria-pressed="false">Estructura</button>
+  <button type="button" data-toggle-tweaks aria-pressed="false" aria-controls="tweaks">Ajustes</button>
+  <span class="devbar__sep" aria-hidden="true"></span>
+  <button type="button" data-toggle-prelaunch aria-pressed="false">Pre-lanzamiento</button>
+</div>
+<div class="template-badge" id="template-badge" hidden>templates/index.json</div>
+
+<aside class="tweaks" id="tweaks" hidden aria-labelledby="tweaks-title">
+  <div class="tweaks__head"><h2 id="tweaks-title">Ajustes del tema</h2><button type="button" class="icon-btn" data-close-tweaks aria-label="Cerrar ajustes"><svg class="ico"><use href="#i-close"/></svg></button></div>
+  <p class="tweaks__intro">Son los mismos controles que tendrá el equipo en el personalizador de Shopify. Se guardan en este navegador.</p>
+  <div class="tweak"><label for="tw-brand">Nombre de marca <code>settings.brand_name</code></label><input id="tw-brand" type="text" maxlength="24" autocomplete="off"></div>
+  <fieldset class="tweak"><legend>Esquema de color <code>settings.color_bg, color_ink…</code></legend><div class="swatches" id="tw-schemes"></div></fieldset>
+  <fieldset class="tweak"><legend>Acento <code>settings.color_accent</code></legend><div class="swatches" id="tw-accents"></div></fieldset>
+  <div class="tweak"><label for="tw-intensity">Refracción de la gota <code>section.settings.intensity</code></label><input id="tw-intensity" type="range" min="0" max="2" step="0.1"></div>
+  <div class="tweak"><label for="tw-announce">Barra de anuncios <code>section.settings.text</code></label><input id="tw-announce" type="text" maxlength="80" autocomplete="off"></div>
+  <p class="tweaks__note">Textos, precios, fórmulas y nombre son de ejemplo hasta tener el manual de marca.</p>
+</aside>
+
+<script>
+/*__HERO_JS__*/
+</script>
+<script>
+/*__APP_JS__*/
+</script>

@@ -1,0 +1,100 @@
+{%- liquid
+  assign heading_lines = section.settings.heading | strip | newline_to_br | strip_newlines | split: '<br />'
+  assign intensity = section.settings.intensity | divided_by: 100.0
+-%}
+<section
+  class="hero-drop"
+  id="hero-{{ section.id }}"
+  data-hero-drop
+  data-heading="{{ heading_lines | join: '|' | escape }}"
+  data-intensity="{{ intensity }}"
+  data-idle="{{ section.settings.idle }}"
+  {% if section.settings.tint != blank %}style="--hero-tint: {{ section.settings.tint }};"{% endif %}
+>
+  <canvas class="hero-drop__canvas" data-hero-canvas aria-hidden="true"></canvas>
+  {%- if section.settings.fallback_image != blank -%}
+    {{ section.settings.fallback_image | image_url: width: 2000 | image_tag: class: 'hero-drop__fallback', sizes: '100vw', widths: '750, 1100, 1500, 2000', loading: 'eager', alt: '' }}
+  {%- endif -%}
+
+  <div class="wrap hero-drop__headwrap">
+    <h1 class="hero-drop__heading">
+      {%- for line in heading_lines -%}
+        <span>{{ line | strip | escape }}</span>{% unless forloop.last %} {% endunless %}
+      {%- endfor -%}
+    </h1>
+  </div>
+
+  <div class="wrap hero-drop__content">
+    <div class="hero-drop__text">
+      {%- if section.settings.lede != blank -%}
+        <p class="hero-drop__lede">{{ section.settings.lede | escape }}</p>
+      {%- endif -%}
+      <div class="hero-drop__ctas">
+        {%- if section.settings.button_1_label != blank -%}
+          <a class="btn" href="{{ section.settings.button_1_link | default: routes.all_products_collection_url }}">{{ section.settings.button_1_label | escape }}</a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a class="btn btn--ghost" href="{{ section.settings.button_2_link | default: routes.all_products_collection_url }}">{{ section.settings.button_2_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- if section.settings.hint != blank -%}
+      <p class="hero-drop__hint" data-hero-hint data-touch-text="{{ section.settings.hint_touch | escape }}">{{ section.settings.hint | escape }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<script src="{{ 'hero-drop.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Hero gota interactiva",
+  "class": "section-hero",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Titular",
+      "info": "Una línea por renglón. Se dibuja dentro del efecto.",
+      "default": "Una gota\nbasta."
+    },
+    {
+      "type": "text",
+      "id": "lede",
+      "label": "Entradilla",
+      "default": "Dos fórmulas de alta concentración, pensadas para usarse juntas."
+    },
+    { "type": "text", "id": "button_1_label", "label": "Botón principal", "default": "Comprar el ritual" },
+    { "type": "url", "id": "button_1_link", "label": "Enlace del botón principal" },
+    { "type": "text", "id": "button_2_label", "label": "Botón secundario", "default": "Ver las fórmulas" },
+    { "type": "url", "id": "button_2_link", "label": "Enlace del botón secundario" },
+    { "type": "header", "content": "Efecto" },
+    {
+      "type": "range",
+      "id": "intensity",
+      "label": "Refracción",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "%",
+      "default": 100
+    },
+    { "type": "checkbox", "id": "idle", "label": "Mover la gota sin cursor", "default": true },
+    {
+      "type": "color",
+      "id": "tint",
+      "label": "Tinte de la gota",
+      "info": "Vacío: usa el color de acento."
+    },
+    { "type": "text", "id": "hint", "label": "Pista en escritorio", "default": "Mueve el cursor: la gota te sigue" },
+    { "type": "text", "id": "hint_touch", "label": "Pista en móvil", "default": "Toca la pantalla: la gota te sigue" },
+    {
+      "type": "image_picker",
+      "id": "fallback_image",
+      "label": "Imagen alternativa",
+      "info": "Se muestra si el navegador no admite WebGL."
+    }
+  ],
+  "presets": [{ "name": "Hero gota interactiva" }]
+}
+{% endschema %}

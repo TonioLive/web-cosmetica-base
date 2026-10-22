@@ -1,0 +1,6 @@
+.DS_Store
+node_modules/
+*.zip
+prototipo/preview.html
+.shopify/
+prototipo/boceto-tienda.html

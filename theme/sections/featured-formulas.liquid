@@ -1,0 +1,47 @@
+<section class="section formulas" id="formulas">
+  <div class="wrap">
+    <header class="section-head">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}
+        <p>{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+    </header>
+    <div class="formulas__grid">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          {%- assign uid = section.id | append: '-' | append: forloop.index -%}
+          {% render 'product-card', product: block.settings.product, uid: uid %}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Fórmulas destacadas",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Las fórmulas" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texto",
+      "default": "Un sérum y una crema. Cada uno lleva cuatro activos y su porcentaje está escrito en la etiqueta."
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Producto",
+      "settings": [{ "type": "product", "id": "product", "label": "Producto" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fórmulas destacadas",
+      "blocks": [{ "type": "product" }, { "type": "product" }]
+    }
+  ]
+}
+{% endschema %}

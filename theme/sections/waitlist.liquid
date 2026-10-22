@@ -1,0 +1,26 @@
+{%- comment -%}
+  Lista de espera: crea clientes en Shopify con las etiquetas indicadas
+  y consentimiento de marketing (etiqueta «newsletter»).
+{%- endcomment -%}
+<section class="section waitlist" id="lista">
+  <div class="wrap waitlist__grid">
+    <div class="waitlist__intro">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+    </div>
+    {% render 'waitlist-form', form_key: section.id, tags: section.settings.tags, success: section.settings.success %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lista de espera",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "Avísame del lanzamiento" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Un correo el día de la salida y acceso 48 horas antes que nadie." },
+    { "type": "text", "id": "tags", "label": "Etiquetas del cliente", "default": "newsletter,lista-espera" },
+    { "type": "text", "id": "success", "label": "Mensaje de confirmación", "default": "Hecho. Te escribiremos 48 horas antes del lanzamiento." }
+  ],
+  "presets": [{ "name": "Lista de espera" }]
+}
+{% endschema %}

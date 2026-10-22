@@ -1,0 +1,13 @@
+<section class="section page">
+  <div class="wrap">
+    <h1 class="page__title">{{ page.title | escape }}</h1>
+    <div class="rte">{{ page.content }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Página",
+  "settings": []
+}
+{% endschema %}

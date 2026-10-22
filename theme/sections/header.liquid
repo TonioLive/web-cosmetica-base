@@ -1,0 +1,52 @@
+<header class="site-header" data-header>
+  <div class="wrap site-header__inner">
+    <div>
+      <button type="button" class="icon-btn menu-toggle" data-open="menu-drawer" aria-label="{{ 'header.menu_open' | t }}">
+        {%- render 'icon', icon: 'menu' -%}
+      </button>
+      <nav class="site-nav" aria-label="{{ 'header.nav_label' | t }}">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+        {%- endfor -%}
+      </nav>
+    </div>
+
+    <a class="wordmark" href="{{ routes.root_url }}">
+      {%- if settings.logo != blank -%}
+        {%- assign logo_w = settings.logo_height | times: settings.logo.aspect_ratio | round -%}
+        {{ settings.logo | image_url: width: 600 | image_tag: width: logo_w, height: settings.logo_height, alt: shop.name, class: 'wordmark__img', loading: 'eager' }}
+      {%- else -%}
+        {{ settings.brand_name | default: shop.name | escape }}
+      {%- endif -%}
+    </a>
+
+    <div class="header-actions">
+      <button type="button" class="icon-btn" data-open="search" aria-label="{{ 'header.search' | t }}">
+        {%- render 'icon', icon: 'search' -%}
+      </button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn hide-sm" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" aria-label="{{ 'header.account' | t }}">
+          {%- render 'icon', icon: 'user' -%}
+        </a>
+      {%- endif -%}
+      <a class="icon-btn" href="{{ routes.cart_url }}" data-open="cart-drawer" data-bag-label aria-label="{{ 'header.cart' | t: count: cart.item_count }}">
+        {%- render 'icon', icon: 'bag' -%}
+        <span class="bag-count tnum" data-bag-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% render 'menu-drawer', menu: section.settings.menu %}
+{% render 'search-overlay' %}
+
+{% schema %}
+{
+  "name": "Cabecera",
+  "class": "section-header",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menú", "default": "main-menu" }
+  ]
+}
+{% endschema %}

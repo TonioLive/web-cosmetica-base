@@ -1,0 +1,21 @@
+{%- comment -%}
+  Imagen principal de un producto o, si no tiene fotos, su ilustración.
+  Parámetros: product, uid, width (px), sizes, index (posición en product.media, 0 por defecto)
+{%- endcomment -%}
+{%- liquid
+  assign i = index | default: 0
+  assign w = width | default: 900
+  assign media = product.media[i]
+-%}
+{%- if media -%}
+  {%- assign alt = media.alt | default: product.title -%}
+  {{ media.preview_image | image_url: width: w | image_tag: loading: 'lazy', sizes: sizes, widths: '360, 540, 720, 900, 1200', alt: alt }}
+{%- elsif i == 0 -%}
+  {%- assign label_text = product.metafields.custom.volumen.value | default: product.type -%}
+  {% render 'product-art',
+    forma: product.metafields.custom.forma.value,
+    uid: uid,
+    title: product.title,
+    label: label_text
+  %}
+{%- endif -%}

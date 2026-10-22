@@ -1,0 +1,17 @@
+<section class="section collection">
+  <div class="wrap">
+    <header class="collection__head"><h1>{{ 'products.shop' | t }}</h1></header>
+    <ul class="menu-list">
+      {%- for collection in collections -%}
+        <li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lista de colecciones",
+  "settings": []
+}
+{% endschema %}

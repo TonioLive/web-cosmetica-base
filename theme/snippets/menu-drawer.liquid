@@ -1,0 +1,24 @@
+{%- comment -%} Menú lateral para móvil. Uso: {% render 'menu-drawer', menu: section.settings.menu %} {%- endcomment -%}
+<div class="drawer drawer--left" id="menu-drawer" inert>
+  <button type="button" class="drawer__backdrop" data-close tabindex="-1" aria-label="{{ 'header.menu_close' | t }}"></button>
+  <aside class="drawer__panel" role="dialog" aria-modal="true" aria-labelledby="menu-drawer-title">
+    <div class="drawer__head">
+      <h2 id="menu-drawer-title" class="visually-hidden">{{ 'header.menu' | t }}</h2>
+      <span class="wordmark">{{ settings.brand_name | default: shop.name | escape }}</span>
+      <button type="button" class="icon-btn" data-close aria-label="{{ 'header.menu_close' | t }}">{% render 'icon', icon: 'close' %}</button>
+    </div>
+    <div class="drawer__body">
+      <ul class="menu-list">
+        {%- for link in menu.links -%}
+          <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- for child in link.links -%}
+            <li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>
+          {%- endfor -%}
+        {%- endfor -%}
+      </ul>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="btn btn--ghost" href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}">{{ 'header.account' | t }}</a>
+      {%- endif -%}
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,100 @@
+{
+  "general": {
+    "page": "Página {{ page }}",
+    "skip": "Saltar al contenido",
+    "close": "Cerrar"
+  },
+  "header": {
+    "menu_open": "Abrir menú",
+    "menu_close": "Cerrar menú",
+    "menu": "Menú",
+    "nav_label": "Principal",
+    "search": "Buscar",
+    "account": "Cuenta",
+    "cart": {
+      "one": "Bolsa, {{ count }} artículo",
+      "other": "Bolsa, {{ count }} artículos"
+    }
+  },
+  "products": {
+    "add_to_cart": "Añadir a la bolsa",
+    "added": "Añadido",
+    "sold_out": "Agotado",
+    "choose": "Elegir tamaño",
+    "from": "Desde {{ price }}",
+    "sale": "Oferta",
+    "quantity": "Cantidad",
+    "quantity_decrease": "Quitar una unidad",
+    "quantity_increase": "Añadir una unidad",
+    "gallery": "Imágenes del producto",
+    "view_media": "Ver imagen {{ index }}",
+    "pao": "Usar en {{ months }} meses tras abrir",
+    "breadcrumb": "Ruta de navegación",
+    "shop": "Tienda",
+    "actives_caption": "Activos de {{ product }} y su concentración"
+  },
+  "cart": {
+    "title": "Tu bolsa",
+    "close": "Cerrar la bolsa",
+    "empty": "Tu bolsa está vacía",
+    "empty_text": "Empieza por el sérum: es la base del ritual.",
+    "continue": "Ver la tienda",
+    "remove": "Quitar",
+    "subtotal": "Subtotal",
+    "taxes": "Impuestos incluidos. Envío calculado al finalizar la compra.",
+    "checkout": "Finalizar compra",
+    "samples": "Elige tus muestras de regalo",
+    "samples_count": "Hasta {{ max }} muestras",
+    "gift_wrap": "Envolver para regalo, sin coste",
+    "gift_message": "Mensaje para la tarjeta (lo escribimos a mano)",
+    "update": "Actualizar",
+    "error": "No se ha podido actualizar la bolsa. Recarga la página e inténtalo de nuevo."
+  },
+  "search": {
+    "title": "Buscar",
+    "label": "Buscar productos o ingredientes",
+    "placeholder": "Buscar",
+    "close": "Cerrar la búsqueda",
+    "no_results": "Nada coincide con «{{ terms }}». Prueba con un activo, como niacinamida.",
+    "results": "Resultados para «{{ terms }}»",
+    "submit": "Buscar"
+  },
+  "newsletter": {
+    "email": "Correo electrónico",
+    "placeholder": "Tu correo electrónico",
+    "submit": "Apuntarme",
+    "consent": "Acepto la política de privacidad y recibir comunicaciones comerciales."
+  },
+  "countdown": {
+    "days": "días",
+    "hours": "horas",
+    "minutes": "minutos",
+    "label": "Tiempo que falta"
+  },
+  "password": {
+    "enter": "Entrar con contraseña",
+    "password": "Contraseña",
+    "submit": "Entrar"
+  },
+  "not_found": {
+    "title": "Esta página no existe",
+    "text": "Puede que el enlace haya cambiado. Vuelve a la tienda para seguir mirando.",
+    "cta": "Volver a la tienda"
+  },
+  "collections": {
+    "count": {
+      "one": "{{ count }} producto",
+      "other": "{{ count }} productos"
+    },
+    "empty": "Todavía no hay productos en esta colección."
+  },
+  "blogs": {
+    "read_more": "Leer artículo"
+  },
+  "gift_card": {
+    "title": "Tu tarjeta regalo",
+    "code": "Código",
+    "balance": "Saldo disponible: {{ balance }}",
+    "shop": "Ir a la tienda"
+  }
+}

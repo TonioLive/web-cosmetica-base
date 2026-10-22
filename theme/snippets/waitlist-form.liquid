@@ -1,0 +1,32 @@
+{%- comment -%}
+  Formulario de cliente reutilizable (inicio y página de contraseña).
+  Uso: {% render 'waitlist-form', form_key: section.id, tags: section.settings.tags, success: section.settings.success %}
+{%- endcomment -%}
+{%- assign form_id = 'waitlist-' | append: form_key -%}
+{%- form 'customer', id: form_id, class: 'waitlist__form' -%}
+  <input type="hidden" name="contact[tags]" value="{{ tags | default: 'newsletter' | escape }}">
+  {%- if form.posted_successfully? -%}
+    <p class="form-msg" role="status">{{ success | escape }}</p>
+  {%- else -%}
+    <label for="{{ form_id }}-email" class="visually-hidden">{{ 'newsletter.email' | t }}</label>
+    <div class="field-row">
+      <input
+        id="{{ form_id }}-email"
+        type="email"
+        name="contact[email]"
+        required
+        autocomplete="email"
+        placeholder="{{ 'newsletter.placeholder' | t }}"
+        {% if form.errors %}aria-invalid="true" aria-describedby="{{ form_id }}-error"{% endif %}
+      >
+      <button type="submit" class="field-row__btn">{{ 'newsletter.submit' | t }}</button>
+    </div>
+    <label class="consent" for="{{ form_id }}-consent">
+      <input type="checkbox" id="{{ form_id }}-consent" required>
+      <span>{{ 'newsletter.consent' | t }}</span>
+    </label>
+    {%- if form.errors -%}
+      <p class="form-msg is-error" id="{{ form_id }}-error" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+    {%- endif -%}
+  {%- endif -%}
+{%- endform -%}

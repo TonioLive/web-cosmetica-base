@@ -1,0 +1,124 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-drop",
+      "settings": {
+        "heading": "Una gota\nbasta.",
+        "lede": "Dos fórmulas de alta concentración, pensadas para usarse juntas.",
+        "button_1_label": "Comprar el ritual",
+        "button_1_link": "",
+        "button_2_label": "Ver las fórmulas",
+        "button_2_link": "",
+        "intensity": 100,
+        "idle": true,
+        "hint": "Mueve el cursor: la gota te sigue",
+        "hint_touch": "Toca la pantalla: la gota te sigue"
+      }
+    },
+    "formulas": {
+      "type": "featured-formulas",
+      "blocks": {
+        "p1": {
+          "type": "product",
+          "settings": {}
+        },
+        "p2": {
+          "type": "product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2"
+      ],
+      "settings": {
+        "heading": "Las fórmulas",
+        "text": "Un sérum y una crema. Cada uno lleva cuatro activos y su porcentaje está escrito en la etiqueta."
+      }
+    },
+    "ritual": {
+      "type": "ritual-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Piel limpia",
+            "text": "Empieza siempre sobre la piel limpia y todavía un poco húmeda. Los activos penetran mejor.",
+            "when": "Mañana y noche"
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Tres gotas de sérum",
+            "text": "En la palma de la mano. Presiona sobre rostro y cuello, sin frotar, hasta que se absorba.",
+            "when": "Mañana y noche"
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Una capa de crema",
+            "text": "Una cantidad del tamaño de un guisante. Caliéntala entre los dedos y extiende de dentro hacia fuera.",
+            "when": "Por la noche"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "heading": "El ritual",
+        "text": "Tres pasos y menos de un minuto. El orden importa: de la textura más ligera a la más rica."
+      }
+    },
+    "facts": {
+      "type": "formula-facts",
+      "blocks": {
+        "f1": {
+          "type": "product",
+          "settings": {}
+        },
+        "f2": {
+          "type": "product",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2"
+      ],
+      "settings": {
+        "heading": "Lo que pone la etiqueta",
+        "text": "Cada activo con su concentración. Si una cifra cambia en la fórmula, cambia aquí."
+      }
+    },
+    "gift": {
+      "type": "gift-countdown",
+      "settings": {
+        "heading": "San Valentín, en un coffret",
+        "date": "2027-02-14T00:00:00+01:00",
+        "button_label": "Reservar el coffret"
+      }
+    },
+    "waitlist": {
+      "type": "waitlist",
+      "settings": {
+        "heading": "Avísame del lanzamiento",
+        "text": "Un correo el día de la salida y acceso 48 horas antes que nadie.",
+        "tags": "newsletter,lista-espera",
+        "success": "Hecho. Te escribiremos 48 horas antes del lanzamiento."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "formulas",
+    "ritual",
+    "facts",
+    "gift",
+    "waitlist"
+  ]
+}

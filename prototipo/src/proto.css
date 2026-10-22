@@ -1,0 +1,69 @@
+/* ---------- Solo prototipo: barra de herramientas, capa de estructura, ajustes ---------- */
+.devbar {
+  position: fixed; z-index: 90;
+  left: 50%; transform: translateX(-50%); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  display: flex; align-items: center; gap: 2px; padding: 5px;
+  background: var(--ink); color: var(--bg); border-radius: 999px;
+  font-size: 13px; box-shadow: 0 12px 32px -14px color-mix(in srgb, var(--ink) 70%, transparent);
+}
+.devbar button { border: 0; background: transparent; color: inherit; padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
+.devbar button:hover { background: color-mix(in srgb, var(--bg) 14%, transparent); }
+.devbar button[aria-pressed="true"] { background: var(--bg); color: var(--ink); }
+.devbar button:focus-visible { outline: 2px solid var(--bg); outline-offset: 1px; }
+.devbar__sep { width: 1px; height: 18px; margin-inline: 2px; background: color-mix(in srgb, var(--bg) 30%, transparent); }
+.has-sticky-buy .devbar { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+@media (max-width: 480px) { .devbar { font-size: 12px; } .devbar button { padding: 8px 11px; } }
+
+.template-badge {
+  position: fixed; z-index: 90;
+  right: calc(16px + env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+  padding: 8px 12px; background: var(--accent); color: var(--on-accent);
+  font: 500 12px/1.3 var(--font-code);
+}
+.has-sticky-buy .template-badge { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+@media (max-width: 640px) { .template-badge { bottom: calc(68px + env(safe-area-inset-bottom, 0px)); } }
+
+.show-structure [data-shopify] { outline: 1px dashed var(--accent); outline-offset: -1px; }
+.show-structure [data-shopify]::after {
+  content: attr(data-shopify);
+  position: absolute; top: 0; left: 0; z-index: 30; max-width: 100%;
+  padding: 4px 8px; background: var(--accent); color: var(--on-accent);
+  font: 500 11px/1.3 var(--font-code); letter-spacing: 0; text-transform: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+.show-structure [data-shopify-block] { position: relative; outline: 1px dotted var(--metal); outline-offset: 2px; }
+.show-structure [data-shopify-block]::before {
+  content: attr(data-shopify-block);
+  position: absolute; top: 0; right: 0; z-index: 31; max-width: 100%;
+  padding: 3px 7px; background: var(--metal); color: var(--ink);
+  font: 500 10.5px/1.3 var(--font-code); letter-spacing: 0; text-transform: none;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;
+}
+.show-structure .announcement[data-shopify]::after,
+.show-structure .site-header[data-shopify]::after { top: auto; bottom: 0; }
+
+.tweaks {
+  position: fixed; z-index: 91;
+  left: calc(16px + env(safe-area-inset-left, 0px)); bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+  width: min(360px, calc(100vw - 32px)); max-height: calc(100svh - 120px); overflow: auto;
+  display: grid; gap: 18px; padding: 20px;
+  background: var(--bg); color: var(--ink); border: 1px solid var(--ink);
+  font-size: var(--fs-sm);
+  box-shadow: 0 24px 48px -24px color-mix(in srgb, var(--ink) 60%, transparent);
+}
+.tweaks__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.tweaks__head h2 { font-size: var(--fs-lg); }
+.tweaks__intro, .tweaks__note { font-size: var(--fs-xs); color: var(--ink-2); }
+.tweak { display: grid; gap: 8px; }
+.tweak > label, .tweak legend { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-weight: 500; }
+.tweak legend { margin-bottom: 8px; width: 100%; }
+.tweak code { font: 400 11px var(--font-code); color: var(--ink-2); }
+.tweak input[type="text"] { width: 100%; padding: 10px 12px; border: 1px solid var(--line); background: var(--bg); }
+.tweak input[type="range"] { width: 100%; accent-color: var(--accent); }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.swatch { position: relative; }
+.swatch input { position: absolute; inset: 0; opacity: 0; margin: 0; }
+.swatch span { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px 0 8px; border: 1px solid var(--line); border-radius: 18px; font-size: var(--fs-xs); cursor: pointer; }
+.swatch i { width: 18px; height: 18px; border-radius: 50%; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 20%, transparent); }
+.swatch input:checked + span { border-color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink); }
+.swatch input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }

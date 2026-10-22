@@ -1,0 +1,76 @@
+{%- comment -%}
+  Ilustración de envase mientras no haya fotografía (product.media vacío).
+  Parámetros: forma ('gota' | 'velo' | 'coffret' | 'drop'), uid (texto único), title, label (subtítulo de etiqueta), ribbon (color CSS opcional)
+  La forma sale del metacampo product.metafields.custom.forma.
+{%- endcomment -%}
+{%- liquid
+  assign brand = settings.brand_name | default: shop.name | upcase | escape
+  assign t = title | default: 'Gota' | escape
+  assign lbl = label | default: '' | escape
+  assign id = uid | default: 'art' | handleize
+  assign rib = ribbon | default: 'var(--accent)'
+-%}
+{%- case forma -%}
+  {%- when 'velo' -%}
+    <svg class="art art--velo" viewBox="0 0 260 320" role="img" aria-label="{{ t }}">
+      <defs>
+        <linearGradient id="vm-{{ id }}" x1="0" x2="1"><stop offset="0" style="stop-color:var(--metal)"/><stop offset=".38" style="stop-color:#fff;stop-opacity:.9"/><stop offset=".58" style="stop-color:var(--metal)"/><stop offset="1" style="stop-color:#5a4a2c"/></linearGradient>
+        <linearGradient id="vs-{{ id }}" x1="0" x2="1"><stop offset="0" style="stop-color:#fff;stop-opacity:.55"/><stop offset=".25" style="stop-color:#fff;stop-opacity:.06"/><stop offset=".75" style="stop-color:#fff;stop-opacity:0"/><stop offset="1" style="stop-color:#000;stop-opacity:.18"/></linearGradient>
+      </defs>
+      <ellipse cx="130" cy="306" rx="108" ry="9" style="fill:#000;opacity:.13"/>
+      <rect x="36" y="52" width="188" height="70" rx="8" fill="url(#vm-{{ id }})"/>
+      <rect x="44" y="57" width="172" height="4" rx="2" style="fill:#fff;opacity:.5"/>
+      <rect x="40" y="120" width="180" height="8" style="fill:#000;opacity:.18"/>
+      <rect x="22" y="124" width="216" height="176" rx="36" style="fill:#F4EEEC;stroke:#000;stroke-opacity:.12"/>
+      <rect x="34" y="134" width="192" height="156" rx="28" style="fill:#E9E0DF;opacity:.75"/>
+      <rect x="22" y="176" width="216" height="76" style="fill:var(--accent)"/>
+      <text x="130" y="197" text-anchor="middle" style="font:400 7px var(--font-body);letter-spacing:2.8px;fill:var(--on-accent)">{{ brand }}</text>
+      <text x="130" y="230" text-anchor="middle" style="font:400 30px var(--font-display);fill:var(--on-accent)">{{ t }}</text>
+      <text x="130" y="244" text-anchor="middle" style="font:400 7px var(--font-body);fill:var(--on-accent);opacity:.85">{{ lbl }}</text>
+      <rect x="22" y="124" width="216" height="176" rx="36" fill="url(#vs-{{ id }})"/>
+      <rect x="36" y="140" width="8" height="144" rx="4" style="fill:#fff;opacity:.45"/>
+    </svg>
+  {%- when 'coffret' -%}
+    <svg class="art art--coffret" viewBox="0 0 340 290" role="img" aria-label="{{ t }}">
+      <defs>
+        <linearGradient id="cs-{{ id }}" x1="0" x2="1"><stop offset="0" style="stop-color:#fff;stop-opacity:.35"/><stop offset=".6" style="stop-color:#fff;stop-opacity:0"/><stop offset="1" style="stop-color:#000;stop-opacity:.14"/></linearGradient>
+      </defs>
+      <ellipse cx="170" cy="276" rx="150" ry="9" style="fill:#000;opacity:.16"/>
+      <rect x="34" y="104" width="272" height="166" style="fill:#F6F0EF"/>
+      <rect x="34" y="104" width="272" height="166" fill="url(#cs-{{ id }})"/>
+      <rect x="24" y="78" width="292" height="44" style="fill:#FBF6F5;stroke:#000;stroke-opacity:.08"/>
+      <rect x="158" y="78" width="24" height="192" style="fill:{{ rib }}"/>
+      <rect x="34" y="186" width="272" height="16" style="fill:{{ rib }}"/>
+      <path d="M170 80c-30-46-74-38-62-6 6 14 34 12 62 6z" style="fill:{{ rib }}"/>
+      <path d="M170 80c30-46 74-38 62-6-6 14-34 12-62 6z" style="fill:{{ rib }}"/>
+      <path d="M164 82l-22 44 14-4 12-38zM176 82l22 44-14-4-12-38z" style="fill:{{ rib }};opacity:.9"/>
+      <circle cx="170" cy="80" r="10" style="fill:{{ rib }}"/>
+      <text x="62" y="105" style="font:400 9px var(--font-body);letter-spacing:3.6px;fill:#24171C">{{ brand }}</text>
+    </svg>
+  {%- when 'drop' -%}
+    <svg class="art art--drop" viewBox="0 0 200 300" role="img" aria-label="{{ t }}">
+      <defs><radialGradient id="dg-{{ id }}" cx=".38" cy=".6" r=".7"><stop offset="0" style="stop-color:#fff;stop-opacity:.5"/><stop offset="1" style="stop-color:#fff;stop-opacity:.04"/></radialGradient></defs>
+      <path d="M100 22C100 22 36 128 36 176a64 64 0 0 0 128 0C164 128 100 22 100 22z" fill="url(#dg-{{ id }})" style="stroke:currentColor;stroke-opacity:.7;stroke-width:1.2"/>
+      <path d="M66 180a34 34 0 0 0 24 34" style="fill:none;stroke:currentColor;stroke-opacity:.6;stroke-width:2;stroke-linecap:round"/>
+    </svg>
+  {%- else -%}
+    <svg class="art art--gota" viewBox="0 0 200 430" role="img" aria-label="{{ t }}">
+      <defs>
+        <linearGradient id="gm-{{ id }}" x1="0" x2="1"><stop offset="0" style="stop-color:var(--metal)"/><stop offset=".42" style="stop-color:#fff;stop-opacity:.9"/><stop offset=".62" style="stop-color:var(--metal)"/><stop offset="1" style="stop-color:#5a4a2c"/></linearGradient>
+        <linearGradient id="gl-{{ id }}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--accent);stop-opacity:.42"/><stop offset="1" style="stop-color:var(--accent);stop-opacity:.92"/></linearGradient>
+        <linearGradient id="gs-{{ id }}" x1="0" x2="1"><stop offset="0" style="stop-color:#fff;stop-opacity:.6"/><stop offset=".22" style="stop-color:#fff;stop-opacity:.08"/><stop offset=".7" style="stop-color:#fff;stop-opacity:0"/><stop offset="1" style="stop-color:#000;stop-opacity:.16"/></linearGradient>
+      </defs>
+      <ellipse cx="100" cy="418" rx="74" ry="8" style="fill:#000;opacity:.13"/>
+      <path d="M84 74V30c0-15 32-15 32 0v44z" style="fill:#1d1216"/>
+      <rect x="70" y="72" width="60" height="58" rx="5" fill="url(#gm-{{ id }})"/>
+      <rect x="36" y="128" width="128" height="282" rx="30" style="fill:var(--bg);fill-opacity:.5;stroke:var(--ink);stroke-opacity:.16"/>
+      <rect x="42" y="196" width="116" height="208" rx="24" fill="url(#gl-{{ id }})"/>
+      <rect x="95" y="130" width="10" height="236" rx="5" style="fill:#fff;fill-opacity:.35;stroke:#000;stroke-opacity:.1"/>
+      <rect x="54" y="248" width="92" height="104" style="fill:#F7F2F1"/>
+      <text x="100" y="270" text-anchor="middle" style="font:400 6.5px var(--font-body);letter-spacing:2.6px;fill:#24171C">{{ brand }}</text>
+      <text x="100" y="308" text-anchor="middle" style="font:400 30px var(--font-display);fill:#24171C">{{ t }}</text>
+      <text x="100" y="326" text-anchor="middle" style="font:400 7px var(--font-body);fill:#24171C">{{ lbl }}</text>
+      <rect x="36" y="128" width="128" height="282" rx="30" fill="url(#gs-{{ id }})"/>
+      <rect x="48" y="146" width="7" height="246" rx="3.5" style="fill:#fff;opacity:.42"/>
+    </svg>
+{%- endcase -%}

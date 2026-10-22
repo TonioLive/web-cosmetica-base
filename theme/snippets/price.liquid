@@ -1,0 +1,18 @@
+{%- comment -%}
+  Precio. Uso: {% render 'price', product: product %} o {% render 'price', product: product, variant: variant %}
+  Sin variante y con precios distintos muestra «Desde …».
+{%- endcomment -%}
+{%- liquid
+  if variant != blank
+    assign v = variant
+  else
+    assign v = product.selected_or_first_available_variant
+  endif
+-%}
+{%- if variant == blank and product.price_varies -%}
+  {%- assign min_price = product.price_min | money -%}
+  <span data-price>{{ 'products.from' | t: price: min_price }}</span>
+{%- else -%}
+  <span data-price>{{ v.price | money }}</span>
+  {%- if v.compare_at_price > v.price %} <s data-compare>{{ v.compare_at_price | money }}</s>{%- endif -%}
+{%- endif -%}

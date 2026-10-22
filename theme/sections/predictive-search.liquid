@@ -1,0 +1,21 @@
+{%- comment -%} Resultados que pide theme.js a /search/suggest?section_id=predictive-search {%- endcomment -%}
+{%- if predictive_search.performed -%}
+  {%- if predictive_search.resources.products.size > 0 -%}
+    {%- for product in predictive_search.resources.products -%}
+      {%- assign uid = 'ps-' | append: forloop.index -%}
+      <a class="search-result" href="{{ product.url }}">
+        <span class="search-result__media">{% render 'product-media', product: product, uid: uid, width: 200 %}</span>
+        <span><strong>{{ product.title | escape }}</strong><span>{{ product.type | escape }}, {{ product.price | money }}</span></span>
+      </a>
+    {%- endfor -%}
+  {%- else -%}
+    <p>{{ 'search.no_results' | t: terms: predictive_search.terms }}</p>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Búsqueda predictiva",
+  "settings": []
+}
+{% endschema %}

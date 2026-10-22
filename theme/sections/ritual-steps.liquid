@@ -1,0 +1,75 @@
+<section class="section ritual" id="ritual" data-ritual>
+  <div class="wrap">
+    <header class="section-head">
+      <h2>{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.text != blank -%}
+        <p>{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+    </header>
+    <div class="ritual__grid">
+      <div class="ritual__visual" aria-hidden="true">
+        {%- for block in section.blocks -%}
+          {%- assign uid = section.id | append: '-r' | append: forloop.index -%}
+          <div class="ritual__frame{% if forloop.first %} is-active{% endif %}" data-frame="{{ forloop.index0 }}">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', sizes: '50vw', widths: '600, 900, 1200', alt: '' }}
+            {%- elsif block.settings.product != blank -%}
+              {% render 'product-media', product: block.settings.product, uid: uid, width: 1200, sizes: '50vw' %}
+            {%- else -%}
+              {% render 'product-art', forma: 'drop', uid: uid, title: block.settings.title %}
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+      <ol class="ritual__steps">
+        {%- for block in section.blocks -%}
+          <li class="ritual-step{% if forloop.first %} is-active{% endif %}" data-step="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+            <span class="ritual-step__n">{{ forloop.index }}</span>
+            <h3>{{ block.settings.title | escape }}</h3>
+            {%- if block.settings.text != blank -%}<p>{{ block.settings.text | escape }}</p>{%- endif -%}
+            {%- if block.settings.when != blank -%}<span class="ritual-step__when">{{ block.settings.when | escape }}</span>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Pasos del ritual",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Título", "default": "El ritual" },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texto",
+      "default": "Tres pasos y menos de un minuto. El orden importa: de la textura más ligera a la más rica."
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Paso",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Piel limpia" },
+        { "type": "textarea", "id": "text", "label": "Texto" },
+        { "type": "text", "id": "when", "label": "Momento", "default": "Mañana y noche" },
+        { "type": "product", "id": "product", "label": "Producto del paso" },
+        { "type": "image_picker", "id": "image", "label": "Imagen", "info": "Sustituye a la imagen del producto." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pasos del ritual",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Piel limpia", "text": "Empieza siempre sobre la piel limpia y todavía un poco húmeda.", "when": "Mañana y noche" } },
+        { "type": "step", "settings": { "title": "Tres gotas de sérum", "text": "En la palma de la mano. Presiona sobre rostro y cuello, sin frotar.", "when": "Mañana y noche" } },
+        { "type": "step", "settings": { "title": "Una capa de crema", "text": "Una cantidad del tamaño de un guisante, de dentro hacia fuera.", "when": "Por la noche" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

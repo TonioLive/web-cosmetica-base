@@ -1,0 +1,99 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "description": {
+          "type": "description"
+        },
+        "variants": {
+          "type": "variant_picker"
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Envío gratuito en 24/48 h</p><p>Devolución gratuita durante 30 días</p><p>Dos muestras de regalo en cada pedido</p>"
+          }
+        },
+        "tab_beneficios": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Qué hace",
+            "source": "beneficios",
+            "open": true
+          }
+        },
+        "tab_activos": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Activos y concentración",
+            "source": "activos",
+            "open": false
+          }
+        },
+        "tab_inci": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Ingredientes (INCI)",
+            "source": "inci",
+            "open": false
+          }
+        },
+        "tab_uso": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Cómo se usa",
+            "source": "modo_de_uso",
+            "open": false
+          }
+        },
+        "tab_envio": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Envío y devoluciones",
+            "source": "text",
+            "content": "<p>Envío gratuito en 24/48 h a península. Devolución gratuita durante 30 días si el producto está sin abrir.</p>",
+            "open": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "description",
+        "variants",
+        "buy",
+        "text",
+        "tab_beneficios",
+        "tab_activos",
+        "tab_inci",
+        "tab_uso",
+        "tab_envio"
+      ],
+      "settings": {}
+    },
+    "complementary": {
+      "type": "complementary-products",
+      "settings": {
+        "heading": "Completa el ritual",
+        "intent": "complementary"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "complementary"
+  ]
+}
